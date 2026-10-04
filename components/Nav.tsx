@@ -13,10 +13,7 @@ export default function Nav() {
         <span className="text-[1.05rem] font-medium tracking-tight">
           avgrosheva
         </span>
-        <Star
-          variant="asymmetric"
-          className="h-3 w-3 text-ink transition-colors duration-300 group-hover:text-lime"
-        />
+        <Star className="h-3 w-3 text-ink transition-all duration-300 group-hover:rotate-12 group-hover:text-lime" />
       </a>
 
       <nav className="hidden items-center gap-10 md:flex">

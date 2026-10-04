@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Golos_Text, JetBrains_Mono } from "next/font/google";
+import { Onest, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const golosText = Golos_Text({
+const displayFont = Onest({
   variable: "--font-display",
   subsets: ["latin", "cyrillic"],
 });
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${golosText.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${displayFont.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-bg text-ink font-display">{children}</body>
     </html>

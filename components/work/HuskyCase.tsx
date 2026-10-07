@@ -1,12 +1,13 @@
 "use client";
 
-import { MotionConfig, motion, useReducedMotion } from "motion/react";
+import { MotionConfig, motion } from "motion/react";
 import { HUSKY_CASE as H, getAdjacentProjects, type CaseMedia } from "@/data/projects";
 import Star from "../stars/Star";
 import { EASE } from "@/lib/motion";
 import {
   Caption,
   CaseNav,
+  CaseVideo,
   ContactLink,
   Reveal,
   gap,
@@ -65,8 +66,7 @@ export default function HuskyCase({
   onClose: () => void;
   onNavigate: CaseNavigate;
 }) {
-  const { prev, next } = getAdjacentProjects("husky");
-  const reduceMotion = useReducedMotion();
+  const { prev, next } = getAdjacentProjects("hasky");
   useCaseOverlay(onClose);
 
   return (
@@ -104,7 +104,7 @@ export default function HuskyCase({
               className="col-span-12 md:col-span-8"
             >
               <h2 className="text-[clamp(3.25rem,7.4vw,7.25rem)] font-medium leading-[0.88] tracking-[-0.04em]">
-                husky
+                hasky
                 <br />
                 <span className="md:whitespace-nowrap md:pl-[0.9em]">rider academy</span>
               </h2>
@@ -114,7 +114,7 @@ export default function HuskyCase({
 
             <figure className="col-span-10 col-start-2 sm:col-span-6 sm:col-start-4 md:col-span-4 md:col-start-9 md:row-span-2">
               <motion.div
-                layoutId="visual-husky"
+                layoutId="visual-hasky"
                 className={PHONE}
                 style={{ borderRadius: PHONE_RADIUS }}
               >
@@ -143,7 +143,7 @@ export default function HuskyCase({
               </div>
             </Reveal>
             <Reveal className="mt-24 md:mt-40">
-              <p className="max-w-[16em] text-[clamp(2.25rem,5.6vw,5.25rem)] font-medium leading-[0.98] tracking-[-0.035em] text-ink">
+              <p className="max-w-[16em] text-[clamp(1.625rem,5.6vw,5.25rem)] font-medium leading-[0.98] tracking-[-0.035em] text-ink">
                 {H.keyMessage}
               </p>
             </Reveal>
@@ -154,7 +154,7 @@ export default function HuskyCase({
             <Reveal>
               <p className={`${label} mb-8`}>как это работает</p>
             </Reveal>
-            <ol className="flex flex-col gap-1 text-[clamp(2rem,4.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.03em]">
+            <ol className="flex flex-col gap-1 text-[clamp(1.75rem,4.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.03em]">
               {H.flow.map((word, i) => {
                 const last = i === H.flow.length - 1;
                 return (
@@ -165,7 +165,7 @@ export default function HuskyCase({
                     viewport={{ once: true, margin: "-8% 0px" }}
                     transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
                     style={{ "--step": i } as React.CSSProperties}
-                    className={`flex items-baseline gap-4 pl-[calc(var(--step)*6%)] md:pl-[calc(var(--step)*11%)] ${
+                    className={`flex items-baseline gap-3 pl-[calc(var(--step)*3%)] sm:gap-4 sm:pl-[calc(var(--step)*6%)] md:pl-[calc(var(--step)*11%)] ${
                       last ? "text-ink" : "text-ink/80"
                     }`}
                   >
@@ -225,19 +225,15 @@ export default function HuskyCase({
               <Reveal className="md:sticky md:top-12">
                 <figure>
                   <div
-                    className="aspect-[576/1280] overflow-hidden border border-line bg-bg-raised md:mx-auto md:w-[min(100%,35.1vh)]"
+                    // 66px shorter than the recording, bottom-anchored: drops the status bar with the
+                    // screen-recording pill and battery, starting the frame at the Mini App header
+                    className="aspect-[576/1214] overflow-hidden border border-line bg-bg-raised md:mx-auto md:w-[min(100%,35.1vh)]"
                     style={{ borderRadius: VIDEO_RADIUS }}
                   >
-                    <video
+                    <CaseVideo
                       src={media.demo.src}
-                      muted
-                      loop
-                      playsInline
-                      autoPlay={!reduceMotion}
-                      controls={!!reduceMotion}
-                      preload="metadata"
-                      aria-label={media.demo.caption}
-                      className="h-full w-full object-cover"
+                      label={media.demo.caption}
+                      className="h-full w-full object-cover object-bottom"
                     />
                   </div>
                   <Caption n="04">{media.demo.caption}</Caption>
@@ -249,13 +245,13 @@ export default function HuskyCase({
           {/* 9 — capabilities as one running line */}
           <section className={gap}>
             <Reveal>
-              <p className={`${label} mb-8`}>что умеет Husky</p>
+              <p className={`${label} mb-8`}>что умеет Hasky</p>
             </Reveal>
             <Reveal delay={0.05}>
-              <p className="text-[clamp(1.75rem,3.4vw,3rem)] font-medium leading-[1.15] tracking-[-0.025em] text-ink">
+              <p className="text-[clamp(1.25rem,5.6vw,1.75rem)] font-medium leading-[1.25] md:text-[clamp(1.75rem,3.4vw,3rem)] md:leading-[1.15] tracking-[-0.025em] text-ink">
                 {H.capabilities.map((c, i) => (
                   <span key={c}>
-                    <span className="whitespace-nowrap">{c}</span>
+                    <span className="md:whitespace-nowrap">{c}</span>
                     {i < H.capabilities.length - 1 && (
                       <span className="px-[0.35em] font-normal text-ink-soft/35">/</span>
                     )}{" "}

@@ -1,6 +1,6 @@
 "use client";
 
-import { MotionConfig, motion, useReducedMotion } from "motion/react";
+import { MotionConfig, motion } from "motion/react";
 import {
   AI_PRODUCT_INTELLIGENCE_CASE as A,
   getAdjacentProjects,
@@ -12,6 +12,7 @@ import { EASE } from "@/lib/motion";
 import {
   Caption,
   CaseNav,
+  CaseVideo,
   ContactLink,
   Reveal,
   gap,
@@ -78,7 +79,6 @@ export default function AiProductIntelligenceCase({
   onNavigate: CaseNavigate;
 }) {
   const { prev, next } = getAdjacentProjects("ai-product-intelligence");
-  const reduceMotion = useReducedMotion();
   useCaseOverlay(onClose);
 
   return (
@@ -276,16 +276,11 @@ export default function AiProductIntelligenceCase({
           <Reveal className={gap}>
             <figure>
               <div className="aspect-[1280/560] overflow-hidden bg-ink">
-                <video
+                {/* slightly wider than the frame, left-anchored: trims the recorded scrollbar on the right edge */}
+                <CaseVideo
                   src={media.demo.src}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay={!reduceMotion}
-                  controls={!!reduceMotion}
-                  preload="metadata"
-                  aria-label={media.demo.caption}
-                  className="h-full w-full object-contain"
+                  label={media.demo.caption}
+                  className="h-full w-[101%] max-w-none object-cover object-left-top"
                 />
               </div>
               <Caption n="05">{media.demo.caption}</Caption>

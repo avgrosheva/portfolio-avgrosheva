@@ -1,6 +1,6 @@
 "use client";
 
-import { MotionConfig, motion, useReducedMotion } from "motion/react";
+import { MotionConfig, motion } from "motion/react";
 import {
   KORA_CASE,
   PROJECTS,
@@ -10,7 +10,7 @@ import {
 import Star from "../stars/Star";
 import ProjectVisual from "./ProjectVisual";
 import { EASE } from "@/lib/motion";
-import { CaseNav, useCaseOverlay, type CaseNavigate } from "./caseParts";
+import { CaseNav, CaseVideo, useCaseOverlay, type CaseNavigate } from "./caseParts";
 
 const { media } = KORA_CASE;
 
@@ -106,7 +106,6 @@ export default function KoraCase({
 }) {
   const { prev, next } = getAdjacentProjects("kora");
   const kora = PROJECTS[0];
-  const reduceMotion = useReducedMotion();
 
   useCaseOverlay(onClose);
 
@@ -281,15 +280,9 @@ export default function KoraCase({
           <Reveal className={`${gap} grid grid-cols-12 gap-x-6`}>
             <figure className="col-span-12 md:col-span-11 md:col-start-2">
               <div className="aspect-[1920/860] overflow-hidden bg-ink">
-                <video
+                <CaseVideo
                   src={media.demo.src}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay={!reduceMotion}
-                  controls={!!reduceMotion}
-                  preload="metadata"
-                  aria-label={media.demo.caption}
+                  label={media.demo.caption}
                   className="h-full w-full object-cover"
                 />
               </div>

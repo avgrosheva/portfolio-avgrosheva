@@ -133,8 +133,8 @@ export default function SelectedWork({ initialCase }: { initialCase?: ProjectId 
           {openId === "service-center" && (
             <ServiceCenterCase key="service-center" onClose={close} onNavigate={navigate} />
           )}
-          {openId === "husky" && (
-            <HuskyCase key="husky" onClose={close} onNavigate={navigate} />
+          {openId === "hasky" && (
+            <HuskyCase key="hasky" onClose={close} onNavigate={navigate} />
           )}
           {openId === "ai-product-intelligence" && (
             <AiProductIntelligenceCase

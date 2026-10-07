@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { CaseMedia, ProjectId, ProjectSummary } from "@/data/projects";
 import { EASE } from "@/lib/motion";
 
@@ -90,6 +90,55 @@ export function Figure({
 // unmounts after the incoming one has locked the page, and must not unlock it.
 let scrollLocks = 0;
 
+/**
+ * Muted demo loop that downloads and plays only near the viewport and pauses once
+ * scrolled away, so opening a case doesn't pull a video the visitor may never reach.
+ * With reduced motion it never autoplays and shows controls instead.
+ */
+export function CaseVideo({
+  src,
+  label,
+  className,
+}: {
+  src: string;
+  label: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video || reduceMotion) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: "200px 0px" },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [reduceMotion]);
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      muted
+      loop
+      playsInline
+      controls={!!reduceMotion}
+      preload={reduceMotion ? "metadata" : "none"}
+      aria-label={label}
+      className={className}
+    />
+  );
+}
+
 export function useCaseOverlay(onClose: () => void) {
   useEffect(() => {
     if (scrollLocks++ === 0) document.body.style.overflow = "hidden";
@@ -126,7 +175,7 @@ export function CaseNav({
       className="mt-10 flex items-start justify-between gap-6 border-t border-line pt-8"
     >
       <button type="button" onClick={() => onNavigate(prev.id)} className={item}>
-        <span className={`${index} uppercase`}>
+        <span className={`${index} whitespace-nowrap uppercase`}>
           <span className="inline-block transition-transform duration-200 group-hover:-translate-x-1">
             ←
           </span>{" "}
@@ -139,7 +188,7 @@ export function CaseNav({
         onClick={() => onNavigate(next.id)}
         className={`${item} items-end text-right`}
       >
-        <span className={`${index} uppercase`}>
+        <span className={`${index} whitespace-nowrap uppercase`}>
           дальше{" "}
           <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
             →

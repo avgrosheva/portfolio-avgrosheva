@@ -1,7 +1,7 @@
 export type ProjectId =
   | "kora"
   | "service-center"
-  | "husky"
+  | "hasky"
   | "ai-product-intelligence";
 
 export interface ProjectSummary {
@@ -66,9 +66,9 @@ export const PROJECTS: ProjectSummary[] = [
     primaryImage: "/projects/service-center/primary.jpg",
   },
   {
-    id: "husky",
+    id: "hasky",
     index: "03",
-    title: "husky rider academy",
+    title: "hasky rider academy",
     tag: "telegram mini app с обучением и прогрессом",
     aspect: "aspect-[3/4]",
     primaryImage: "/projects/husky/primary.jpg",
@@ -297,7 +297,7 @@ export const HUSKY_CASE: HuskyCase = {
   problem:
     "Самостоятельное обучение часто распадается на отдельные материалы, советы и практику без общей структуры. Пользователь не всегда понимает, что изучать дальше, что уже получается и где остаются слабые места.",
   solution:
-    "Husky объединяет контент, практику и прогресс в одном Telegram-продукте. Пользователь выбирает тему, проходит короткий материал, проверяет понимание, выполняет задание в реальном мире и отмечает результат.",
+    "Hasky объединяет контент, практику и прогресс в одном Telegram-продукте. Пользователь выбирает тему, проходит короткий материал, проверяет понимание, выполняет задание в реальном мире и отмечает результат.",
   keyMessage:
     "Mini App превращает Telegram из канала общения в полноценный пользовательский продукт.",
   flow: ["тема", "материал", "проверка", "практика", "самооценка", "прогресс"],

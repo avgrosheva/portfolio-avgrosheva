@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import Star from "../stars/Star";
 import { PROJECTS, type ProjectId } from "@/data/projects";
@@ -10,21 +10,59 @@ import ServiceCenterCase from "./ServiceCenterCase";
 import HuskyCase from "./HuskyCase";
 import AiProductIntelligenceCase from "./AiProductIntelligenceCase";
 
-export default function SelectedWork() {
-  const [openId, setOpenId] = useState<ProjectId | null>(null);
-  // "card": opened from the grid, the cover grows out of its card.
-  // "nav": moved from another case; cases just cross-fade, nothing flies in from the page.
-  const [via, setVia] = useState<"card" | "nav">("card");
+const SITE_TITLE = "avgrosheva — digital product developer";
+const caseFromPath = (path: string) =>
+  PROJECTS.find((p) => path === `/work/${p.id}`)?.id ?? null;
 
+export default function SelectedWork({ initialCase }: { initialCase?: ProjectId }) {
+  const [openId, setOpenId] = useState<ProjectId | null>(initialCase ?? null);
+  // "card": opened from the grid, the cover grows out of its card.
+  // "nav": moved from another case or arrived by link; cases just fade, nothing flies in.
+  const [via, setVia] = useState<"card" | "nav">(initialCase ? "nav" : "card");
+  // Whether the open case sits on top of the main page in history, so closing can be "back".
+  const pushed = useRef(false);
+
+  // Each case has its own address, but the page never reloads: the URL follows the overlay.
+  // Opening adds one history entry; moving between cases replaces it, so a single "back"
+  // (or closing) always returns to the main page right where the visitor left it.
   const open = (id: ProjectId) => {
     setVia("card");
     setOpenId(id);
+    window.history.pushState(null, "", `/work/${id}`);
+    pushed.current = true;
   };
   const navigate = (id: ProjectId) => {
     setVia("nav");
     setOpenId(id);
+    window.history.replaceState(null, "", `/work/${id}`);
   };
-  const close = () => setOpenId(null);
+  const close = () => {
+    setOpenId(null);
+    if (pushed.current) {
+      pushed.current = false;
+      window.history.back();
+    } else {
+      // arrived straight on a case link: turn the address into the main page
+      window.history.replaceState(null, "", "/");
+    }
+  };
+
+  // browser back / forward
+  useEffect(() => {
+    const onPop = () => {
+      const id = caseFromPath(window.location.pathname);
+      if (!id) pushed.current = false;
+      setVia("nav");
+      setOpenId(id);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  useEffect(() => {
+    const project = PROJECTS.find((p) => p.id === openId);
+    document.title = project ? `${project.title} — avgrosheva` : SITE_TITLE;
+  }, [openId]);
 
   const [kora, serviceCenter, husky, aiProductIntelligence] = PROJECTS;
 

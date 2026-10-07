@@ -52,9 +52,9 @@ export default function ProjectCard({
           <div className="group h-full w-full overflow-hidden">
             <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.025]">
               <ProjectVisual
-                src={project.primaryImage}
-                position={project.imagePosition}
-                label={`${project.title} — primary visual`}
+                src={project.cover}
+                position="50% 50%"
+                label={`${project.title} — превью проекта`}
               />
             </div>
           </div>

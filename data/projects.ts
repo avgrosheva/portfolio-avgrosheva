@@ -10,9 +10,10 @@ export interface ProjectSummary {
   title: string;
   tag: string;
   aspect: string;
+  /** main screenshot of the case (also its share preview) */
   primaryImage?: string;
-  /** object-position for the grid card crop, when the default top-left isn't right */
-  imagePosition?: string;
+  /** styled preview on the grid card; the mockup is centred, so `aspect` crops only the backdrop */
+  cover: string;
 }
 
 export interface CaseMedia {
@@ -54,8 +55,9 @@ export const PROJECTS: ProjectSummary[] = [
     index: "01",
     title: "kora",
     tag: "ai-платформа для работы с документами",
-    aspect: "aspect-[4/3]",
+    aspect: "aspect-[16/10]",
     primaryImage: "/projects/kora/primary.jpg",
+    cover: "/projects/kora/cover.webp",
   },
   {
     id: "service-center",
@@ -64,23 +66,25 @@ export const PROJECTS: ProjectSummary[] = [
     tag: "система для управления заявками",
     aspect: "aspect-[4/3]",
     primaryImage: "/projects/service-center/primary.jpg",
+    cover: "/projects/service-center/cover.webp",
   },
   {
     id: "hasky",
     index: "03",
     title: "hasky rider academy",
     tag: "telegram mini app с обучением и прогрессом",
-    aspect: "aspect-[3/4]",
+    aspect: "aspect-[4/5]",
     primaryImage: "/projects/husky/primary.jpg",
-    imagePosition: "50% 30%",
+    cover: "/projects/husky/cover.webp",
   },
   {
     id: "ai-product-intelligence",
     index: "04",
     title: "ai product intelligence",
     tag: "система для анализа релизов ai-продуктов",
-    aspect: "aspect-[16/9]",
+    aspect: "aspect-[3/2]",
     primaryImage: "/projects/ai-product-intelligence/primary.jpg",
+    cover: "/projects/ai-product-intelligence/cover.webp",
   },
 ];
 

@@ -1,4 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import Star from "./stars/Star";
+import { EASE } from "@/lib/motion";
+import { TELEGRAM_HANDLE, TELEGRAM_URL } from "@/lib/contacts";
 
 const LINKS = [
   { index: "01", label: "work", href: "#work" },
@@ -6,7 +12,24 @@ const LINKS = [
   { index: "03", label: "contact", href: "#contact" },
 ];
 
+const mono = "font-mono text-xs uppercase tracking-[0.1em] text-ink-soft";
+
 export default function Nav() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <header className="relative z-20 mx-auto flex max-w-frame items-center justify-between px-8 py-8 md:px-16">
       <a href="#top" className="group flex items-center gap-2">
@@ -31,6 +54,83 @@ export default function Nav() {
           </a>
         ))}
       </nav>
+
+      {/* phone: one quiet trigger, the links open as a full-screen index */}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        className={`${mono} md:hidden`}
+      >
+        menu
+      </button>
+
+      <MotionConfig reducedMotion="user">
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="меню"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-40 flex flex-col bg-bg px-8 pb-10 pt-8 md:hidden"
+            >
+              <div className="flex items-center justify-between">
+                <a href="#top" onClick={() => setOpen(false)} className="flex items-center gap-2">
+                  <span className="text-[1.05rem] font-medium tracking-tight">avgrosheva</span>
+                  <Star className="h-3 w-3 text-lime" />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className={`${mono} flex items-center gap-2`}
+                >
+                  закрыть <span>✕</span>
+                </button>
+              </div>
+
+              <nav className="mt-auto">
+                {LINKS.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: 0.08 + i * 0.06, ease: EASE }}
+                    className="flex items-baseline gap-4 border-t border-line py-4 last:border-b"
+                  >
+                    <span className="font-mono text-xs tracking-[0.12em] text-ink-soft">
+                      [{link.index}]
+                    </span>
+                    <span className="text-[clamp(2.5rem,13vw,4rem)] font-medium leading-none tracking-[-0.035em]">
+                      {link.label}
+                    </span>
+                  </motion.a>
+                ))}
+              </nav>
+
+              <motion.a
+                href={TELEGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.45, delay: 0.3 }}
+                className="mt-10 flex items-baseline justify-between"
+              >
+                <span className={mono}>telegram</span>
+                <span className="text-lg">{TELEGRAM_HANDLE} ↗</span>
+              </motion.a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </MotionConfig>
     </header>
   );
 }

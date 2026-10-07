@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { MotionConfig, motion, useReducedMotion } from "motion/react";
 import {
   KORA_CASE,
@@ -11,8 +10,12 @@ import {
 import Star from "../stars/Star";
 import ProjectVisual from "./ProjectVisual";
 import { EASE } from "@/lib/motion";
+import { CaseNav, useCaseOverlay, type CaseNavigate } from "./caseParts";
 
 const { media } = KORA_CASE;
+
+// same placeholder as the hero's telegram link — swap both once the handle is final
+const CONTACT_URL = "https://t.me/nastya_grosheva";
 
 const label = "text-sm text-ink-soft";
 const index = "font-mono text-xs tracking-[0.12em] text-ink-soft";
@@ -94,22 +97,18 @@ function Figure({
   );
 }
 
-export default function KoraCase({ onClose }: { onClose: () => void }) {
+export default function KoraCase({
+  onClose,
+  onNavigate,
+}: {
+  onClose: () => void;
+  onNavigate: CaseNavigate;
+}) {
   const { prev, next } = getAdjacentProjects("kora");
   const kora = PROJECTS[0];
   const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [onClose]);
+  useCaseOverlay(onClose);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -159,7 +158,7 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
           <figure>
             <motion.div
               layoutId="visual-kora"
-              className="aspect-[1280/679] w-full overflow-hidden bg-ink"
+              className="aspect-[1280/644] w-full overflow-hidden bg-ink"
             >
               <ProjectVisual src={kora.primaryImage} label={media.primary.caption} />
             </motion.div>
@@ -221,15 +220,6 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
                 </motion.span>
               ))}
             </p>
-            <Reveal className="mt-14 grid grid-cols-12 gap-x-6">
-              <ol className="col-span-12 grid gap-x-6 gap-y-3 md:col-span-7 md:col-start-6 md:grid-cols-2">
-                {KORA_CASE.steps.map((step) => (
-                  <li key={step} className="text-ink">
-                    {step}
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
           </section>
 
           {/* 5 — asymmetric pair */}
@@ -244,7 +234,7 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
             <Figure
               item={media.missing}
               n="03"
-              aspect="aspect-[1020/675]"
+              aspect="aspect-[1020/640]"
               crop={1020 / 1280}
               delay={0.08}
               className="col-span-12 md:col-span-5 md:mt-40"
@@ -326,8 +316,8 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
             <Figure
               item={media.workspace}
               n="05"
-              aspect="aspect-[1010/300]"
-              crop={1010 / 1280}
+              aspect="aspect-[1020/395]"
+              crop={1020 / 1280}
               className="col-span-12 md:col-span-6"
             />
           </div>
@@ -340,11 +330,6 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
               </h3>
             </Reveal>
             <div className="mt-14 grid grid-cols-12 gap-x-6 gap-y-6 md:mt-20">
-              <Reveal className="col-span-12 md:col-span-3">
-                <p className="text-lg text-ink-soft">
-                  Подобную систему можно адаптировать под:
-                </p>
-              </Reveal>
               <Reveal className="col-span-12 md:col-span-8 md:col-start-5" delay={0.06}>
                 <ul className="gap-x-10 text-[clamp(1.25rem,1.9vw,1.625rem)] leading-snug text-ink md:columns-2">
                   {KORA_CASE.useCases.map((u) => (
@@ -353,6 +338,20 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
                     </li>
                   ))}
                 </ul>
+              </Reveal>
+              <Reveal className="col-span-12 mt-10 md:col-span-6 md:col-start-5 md:mt-16" delay={0.1}>
+                <p className="text-lg leading-snug text-ink-soft">{KORA_CASE.closing}</p>
+                <a
+                  href={CONTACT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-6 inline-flex items-center gap-2 border-b border-ink pb-1 text-base transition-colors duration-200 hover:border-lime"
+                >
+                  <span>обсудить задачу</span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
+                </a>
               </Reveal>
             </div>
           </section>
@@ -366,10 +365,7 @@ export default function KoraCase({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* 12 — prev / next */}
-          <div className="mt-10 flex items-center justify-between border-t border-line pt-8">
-            <span className={`${index} uppercase`}>← {prev.title}</span>
-            <span className={`${index} uppercase`}>{next.title} →</span>
-          </div>
+          <CaseNav prev={prev} next={next} onNavigate={onNavigate} />
         </div>
       </motion.div>
     </MotionConfig>

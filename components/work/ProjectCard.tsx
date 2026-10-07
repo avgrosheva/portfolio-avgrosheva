@@ -53,6 +53,7 @@ export default function ProjectCard({
             <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.025]">
               <ProjectVisual
                 src={project.primaryImage}
+                position={project.imagePosition}
                 label={`${project.title} — primary visual`}
               />
             </div>

@@ -1,14 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import Star from "../stars/Star";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS, type ProjectId } from "@/data/projects";
 import ProjectCard from "./ProjectCard";
 import KoraCase from "./KoraCase";
+import ServiceCenterCase from "./ServiceCenterCase";
+import HuskyCase from "./HuskyCase";
+import AiProductIntelligenceCase from "./AiProductIntelligenceCase";
 
 export default function SelectedWork() {
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<ProjectId | null>(null);
+  // "card": opened from the grid, the cover grows out of its card.
+  // "nav": moved from another case; cases just cross-fade, nothing flies in from the page.
+  const [via, setVia] = useState<"card" | "nav">("card");
+
+  const open = (id: ProjectId) => {
+    setVia("card");
+    setOpenId(id);
+  };
+  const navigate = (id: ProjectId) => {
+    setVia("nav");
+    setOpenId(id);
+  };
+  const close = () => setOpenId(null);
 
   const [kora, serviceCenter, husky, aiProductIntelligence] = PROJECTS;
 
@@ -36,29 +52,61 @@ export default function SelectedWork() {
         <ProjectCard
           project={kora}
           isOpen={openId === kora.id}
-          onOpen={() => setOpenId(kora.id)}
+          onOpen={() => open(kora.id)}
           className="col-span-12 lg:col-span-7"
         />
         <ProjectCard
           project={serviceCenter}
           isOpen={openId === serviceCenter.id}
+          onOpen={() => open(serviceCenter.id)}
           className="col-span-12 lg:col-span-5 lg:translate-y-16"
         />
         <ProjectCard
           project={husky}
           isOpen={openId === husky.id}
+          onOpen={() => open(husky.id)}
           className="col-span-12 lg:col-span-4 lg:col-start-1 lg:mt-20"
         />
         <ProjectCard
           project={aiProductIntelligence}
           isOpen={openId === aiProductIntelligence.id}
+          onOpen={() => open(aiProductIntelligence.id)}
           className="col-span-12 lg:col-span-7 lg:col-start-6 lg:mt-8"
         />
       </div>
 
+      {/* solid ground under the cases, so switching between them never flashes the page */}
       <AnimatePresence>
-        {openId === "kora" && <KoraCase onClose={() => setOpenId(null)} />}
+        {openId && (
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 bg-bg"
+          />
+        )}
       </AnimatePresence>
+
+      <LayoutGroup id={via === "nav" ? "case-nav" : undefined}>
+        <AnimatePresence>
+          {openId === "kora" && <KoraCase key="kora" onClose={close} onNavigate={navigate} />}
+          {openId === "service-center" && (
+            <ServiceCenterCase key="service-center" onClose={close} onNavigate={navigate} />
+          )}
+          {openId === "husky" && (
+            <HuskyCase key="husky" onClose={close} onNavigate={navigate} />
+          )}
+          {openId === "ai-product-intelligence" && (
+            <AiProductIntelligenceCase
+              key="ai-product-intelligence"
+              onClose={close}
+              onNavigate={navigate}
+            />
+          )}
+        </AnimatePresence>
+      </LayoutGroup>
     </section>
   );
 }

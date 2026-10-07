@@ -30,7 +30,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={0.08}
-          className="block text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-[1.05] text-ink-soft"
+          className="block text-[clamp(1.25rem,5.4vw,1.75rem)] md:text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-[1.05] text-ink-soft"
         >
           разрабатываю
         </motion.span>
@@ -39,7 +39,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={0.18}
-          className="block whitespace-nowrap text-[clamp(2.5rem,6.6vw,7rem)] font-medium leading-[0.96] text-ink"
+          className="block whitespace-nowrap text-[clamp(1.5rem,8vw,2.5rem)] md:text-[clamp(2.5rem,6.6vw,7rem)] font-medium leading-[0.96] text-ink"
         >
           цифровые продукты
         </motion.span>
@@ -48,7 +48,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           custom={0.28}
-          className="ml-[8%] flex items-center gap-3 text-[clamp(2.25rem,5vw,4.5rem)] font-medium leading-[0.98] text-ink md:ml-[12%] md:gap-4"
+          className="ml-[8%] flex items-center gap-3 text-[clamp(1.25rem,6.2vw,2.25rem)] md:text-[clamp(2.25rem,5vw,4.5rem)] font-medium leading-[0.98] text-ink md:ml-[12%] md:gap-4"
         >
           для бизнеса
           <motion.span
@@ -77,7 +77,7 @@ export default function Hero() {
         initial="hidden"
         animate="show"
         custom={0.52}
-        href="https://t.me/"
+        href="https://t.me/nastya_grosheva"
         target="_blank"
         rel="noopener noreferrer"
         className="group mt-10 inline-flex items-center gap-2 border-b border-ink pb-1 text-base transition-colors duration-200 hover:border-lime"

@@ -3,9 +3,11 @@ import Star from "../stars/Star";
 export default function ProjectVisual({
   src,
   label,
+  position,
   className,
 }: {
   src?: string;
+  position?: string;
   label: string;
   className?: string;
 }) {
@@ -15,6 +17,7 @@ export default function ProjectVisual({
       <img
         src={src}
         alt={label}
+        style={position ? { objectPosition: position } : undefined}
         className={`h-full w-full object-cover object-left-top ${className ?? ""}`}
       />
     );

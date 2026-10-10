@@ -39,7 +39,7 @@ export default function Nav() {
             <span className="text-[1.05rem] font-medium tracking-tight">
               avgrosheva
             </span>
-            <Star className="h-3 w-3 text-ink transition-all duration-300 group-hover:rotate-12 group-hover:text-lime" />
+            <Star className="h-4 w-4 text-ink transition-all duration-300 group-hover:rotate-12 group-hover:text-lime" />
           </a>
 
           <nav className="hidden items-center gap-10 md:flex">
@@ -88,7 +88,7 @@ export default function Nav() {
               <div className="flex items-center justify-between">
                 <a href="#top" onClick={() => setOpen(false)} className="flex items-center gap-2">
                   <span className="text-[1.05rem] font-medium tracking-tight">avgrosheva</span>
-                  <Star className="h-3 w-3 text-lime" />
+                  <Star className="h-4 w-4 text-lime" />
                 </a>
                 <button
                   type="button"

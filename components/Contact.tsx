@@ -85,7 +85,7 @@ export default function Contact() {
       <div className="mt-32 flex items-center justify-between font-mono text-xs uppercase tracking-[0.1em] text-ink-soft md:mt-40">
         <a href="#top" className="flex items-center gap-2 normal-case tracking-normal">
           <span className="font-display text-[1.05rem] font-medium text-ink">avgrosheva</span>
-          <Star className="h-3 w-3 text-ink" />
+          <Star className="h-4 w-4 text-ink" />
         </a>
         <span>( 2026 )</span>
       </div>

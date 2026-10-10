@@ -78,7 +78,7 @@ export default function SelectedWork({ initialCase }: { initialCase?: ProjectId 
           </span>
           <h2 className="flex items-center gap-2 text-2xl font-medium md:text-3xl">
             selected work
-            <Star className="h-3 w-3 text-lime" />
+            <Star className="h-5 w-5 text-lime md:h-6 md:w-6" />
           </h2>
         </div>
         <span className="font-mono text-xs uppercase tracking-[0.12em] text-ink-soft">

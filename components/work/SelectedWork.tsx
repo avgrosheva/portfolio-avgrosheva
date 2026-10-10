@@ -10,7 +10,7 @@ import ServiceCenterCase from "./ServiceCenterCase";
 import HaskyCase from "./HaskyCase";
 import AiProductIntelligenceCase from "./AiProductIntelligenceCase";
 
-const SITE_TITLE = "avgrosheva — digital product developer";
+const SITE_TITLE = "avgrosheva";
 const caseFromPath = (path: string) =>
   PROJECTS.find((p) => path === `/work/${p.id}`)?.id ?? null;
 

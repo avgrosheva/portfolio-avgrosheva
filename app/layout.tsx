@@ -18,11 +18,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const metadata: Metadata = {
   ...(siteUrl && { metadataBase: new URL(siteUrl) }),
-  title: "avgrosheva — digital product developer",
+  title: "avgrosheva",
   description:
     "Разрабатываю цифровые продукты для бизнеса: web apps, telegram bots, ai tools, crm, internal systems.",
   openGraph: {
-    title: "avgrosheva — digital product developer",
+    title: "avgrosheva",
     description:
       "Разрабатываю цифровые продукты для бизнеса: web apps, telegram bots, ai tools, crm, internal systems.",
     locale: "ru_RU",

@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // case screenshots are served at one quality, re-encoded from the already-compressed webp
+    qualities: [85],
+  },
 };
 
 export default nextConfig;

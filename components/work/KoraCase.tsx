@@ -10,7 +10,7 @@ import {
 import Star from "../stars/Star";
 import ProjectVisual from "./ProjectVisual";
 import { EASE } from "@/lib/motion";
-import { CaseNav, CaseVideo, useCaseOverlay, type CaseNavigate } from "./caseParts";
+import { CaseNav, CaseVideo, useCaseOverlay, type CaseNavigate, MotionImage } from "./caseParts";
 
 const { media } = KORA_CASE;
 
@@ -80,9 +80,13 @@ function Figure({
     <Reveal className={className} delay={delay}>
       <figure>
         <div className={`${aspect} overflow-hidden bg-ink`}>
-          <motion.img
+          <MotionImage
             src={item.src}
             alt={item.caption}
+            width={1448}
+            height={1086}
+            sizes="(min-width: 768px) 60vw, 100vw"
+            quality={85}
             initial={{ scale: 1.04 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true, margin: "-8% 0px" }}
@@ -118,8 +122,8 @@ export default function KoraCase({
         transition={{ duration: 0.3 }}
         className="fixed inset-0 z-50 overflow-y-auto bg-bg"
       >
-        <div className="mx-auto max-w-frame px-8 pb-24 pt-8 md:px-16">
-          <div className="mb-20 flex items-start justify-between">
+        <div className="mx-auto max-w-frame px-8 pb-24 pt-4 md:px-16">
+          <div className="sticky top-0 z-30 -mx-8 mb-20 flex items-start justify-between bg-bg/85 px-8 py-4 backdrop-blur-md md:-mx-16 md:px-16">
             <span className={`${index} uppercase`}>
               01 <span className="text-ink-soft/50">/ 04</span>
             </span>
@@ -157,9 +161,9 @@ export default function KoraCase({
           <figure>
             <motion.div
               layoutId="visual-kora"
-              className="aspect-[1280/644] w-full overflow-hidden bg-ink"
+              className="aspect-[4/3] w-full overflow-hidden bg-ink"
             >
-              <ProjectVisual src={kora.primaryImage} label={media.primary.caption} />
+              <ProjectVisual src={kora.primaryImage} label={media.primary.caption} sizes="100vw" eager />
             </motion.div>
             <div className="grid grid-cols-12 gap-x-6">
               <div className="col-span-12 md:col-span-4">
@@ -226,15 +230,13 @@ export default function KoraCase({
             <Figure
               item={media.finance}
               n="02"
-              aspect="aspect-[1020/450]"
-              crop={1020 / 1280}
+              aspect="aspect-[4/3]"
               className="col-span-12 md:col-span-7"
             />
             <Figure
               item={media.missing}
               n="03"
-              aspect="aspect-[1020/640]"
-              crop={1020 / 1280}
+              aspect="aspect-[4/3]"
               delay={0.08}
               className="col-span-12 md:col-span-5 md:mt-40"
             />
@@ -279,7 +281,7 @@ export default function KoraCase({
           {/* 7 — demo video */}
           <Reveal className={`${gap} grid grid-cols-12 gap-x-6`}>
             <figure className="col-span-12 md:col-span-11 md:col-start-2">
-              <div className="aspect-[1920/860] overflow-hidden bg-ink">
+              <div className="aspect-[1920/860] max-md:aspect-[16/10] overflow-hidden bg-ink">
                 <CaseVideo
                   src={media.demo.src}
                   label={media.demo.caption}
@@ -309,8 +311,7 @@ export default function KoraCase({
             <Figure
               item={media.workspace}
               n="05"
-              aspect="aspect-[1020/395]"
-              crop={1020 / 1280}
+              aspect="aspect-[4/3]"
               className="col-span-12 md:col-span-6"
             />
           </div>

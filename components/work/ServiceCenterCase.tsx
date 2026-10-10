@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { MotionConfig, motion } from "motion/react";
 import { SERVICE_CENTER_CASE as SC, getAdjacentProjects } from "@/data/projects";
 import Star from "../stars/Star";
@@ -41,8 +42,8 @@ export default function ServiceCenterCase({
         transition={{ duration: 0.3 }}
         className="fixed inset-0 z-50 overflow-y-auto bg-bg"
       >
-        <div className="mx-auto max-w-frame px-8 pb-24 pt-8 md:px-16">
-          <div className="mb-20 flex items-start justify-between">
+        <div className="mx-auto max-w-frame px-8 pb-24 pt-4 md:px-16">
+          <div className="sticky top-0 z-30 -mx-8 mb-20 flex items-start justify-between bg-bg/85 px-8 py-4 backdrop-blur-md md:-mx-16 md:px-16">
             <span className={`${index} uppercase`}>
               02 <span className="text-ink-soft/50">/ 04</span>
             </span>
@@ -80,12 +81,16 @@ export default function ServiceCenterCase({
           <figure>
             <motion.div
               layoutId="visual-service-center"
-              className="aspect-[1242/670] w-full overflow-hidden border border-line bg-bg-raised"
+              className="aspect-[4/3] w-full overflow-hidden border border-line bg-bg-raised"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={media.dashboard.src}
                 alt={media.dashboard.caption}
+                width={1448}
+                height={1086}
+                sizes="100vw"
+                quality={85}
+                loading="eager"
                 className="h-full w-full object-cover object-left-top"
               />
             </motion.div>
@@ -151,13 +156,13 @@ export default function ServiceCenterCase({
             <Figure
               item={media.jobs}
               n="02"
-              aspect="aspect-[1259/738]"
+              aspect="aspect-[4/3]"
               className="col-span-12 md:col-span-7 md:col-start-6 md:row-start-1"
             />
             <Figure
               item={media.job}
               n="03"
-              aspect="aspect-[1202/815]"
+              aspect="aspect-[4/3]"
               delay={0.08}
               className="col-span-12 md:col-span-5 md:col-start-1 md:row-start-1 md:mt-48"
             />
@@ -188,7 +193,7 @@ export default function ServiceCenterCase({
           {/* 7 — demo video, full frame width */}
           <Reveal className={gap}>
             <figure>
-              <div className="aspect-[1280/560] overflow-hidden border border-line bg-bg-raised">
+              <div className="aspect-[1280/560] max-md:aspect-[16/10] overflow-hidden border border-line bg-bg-raised">
                 {/* slightly wider than the frame, left-anchored: trims the recorded scrollbar on the right edge */}
                 <CaseVideo
                   src={media.demo.src}
@@ -213,7 +218,7 @@ export default function ServiceCenterCase({
             <Figure
               item={media.schedule}
               n="05"
-              aspect="aspect-[1213/802]"
+              aspect="aspect-[4/3]"
               delay={0.08}
               className="col-span-12 md:col-span-6 md:col-start-7 md:mt-32"
             />

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { MotionConfig, motion } from "motion/react";
 import {
   AI_PRODUCT_INTELLIGENCE_CASE as A,
@@ -22,6 +23,7 @@ import {
   statement,
   useCaseOverlay,
   type CaseNavigate,
+  MotionImage
 } from "./caseParts";
 
 const { media } = A;
@@ -48,9 +50,13 @@ function Cropped({
           className="relative overflow-hidden bg-ink"
           style={{ aspectRatio: `${c.w} / ${c.h}` }}
         >
-          <motion.img
+          <MotionImage
             src={item.src}
             alt={item.caption}
+            width={1448}
+            height={1086}
+            sizes="(min-width: 768px) 60vw, 100vw"
+            quality={85}
             initial={{ scale: 1.04 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true, margin: "-8% 0px" }}
@@ -90,8 +96,8 @@ export default function AiProductIntelligenceCase({
         transition={{ duration: 0.3 }}
         className="fixed inset-0 z-50 overflow-y-auto bg-bg"
       >
-        <div className="mx-auto max-w-frame px-8 pb-24 pt-8 md:px-16">
-          <div className="mb-20 flex items-start justify-between">
+        <div className="mx-auto max-w-frame px-8 pb-24 pt-4 md:px-16">
+          <div className="sticky top-0 z-30 -mx-8 mb-20 flex items-start justify-between bg-bg/85 px-8 py-4 backdrop-blur-md md:-mx-16 md:px-16">
             <span className={`${index} uppercase`}>
               04 <span className="text-ink-soft/50">/ 04</span>
             </span>
@@ -129,12 +135,16 @@ export default function AiProductIntelligenceCase({
           <figure>
             <motion.div
               layoutId="visual-ai-product-intelligence"
-              className="aspect-[1280/697] w-full overflow-hidden bg-ink"
+              className="aspect-[4/3] w-full overflow-hidden bg-ink"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={media.overview.src}
                 alt={media.overview.caption}
+                width={1448}
+                height={1086}
+                sizes="100vw"
+                quality={85}
+                loading="eager"
                 className="h-full w-full object-cover object-left-top"
               />
             </motion.div>
@@ -275,7 +285,7 @@ export default function AiProductIntelligenceCase({
           {/* 9 — demo, full frame width at its own proportions */}
           <Reveal className={gap}>
             <figure>
-              <div className="aspect-[1280/560] overflow-hidden bg-ink">
+              <div className="aspect-[1280/560] max-md:aspect-[16/10] overflow-hidden bg-ink">
                 {/* slightly wider than the frame, left-anchored: trims the recorded scrollbar on the right edge */}
                 <CaseVideo
                   src={media.demo.src}

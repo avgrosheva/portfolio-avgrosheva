@@ -56,7 +56,7 @@ export const PROJECTS: ProjectSummary[] = [
     title: "kora",
     tag: "ai-платформа для работы с документами",
     aspect: "aspect-[16/10]",
-    primaryImage: "/projects/kora/primary.jpg",
+    primaryImage: "/projects/kora/primary.webp",
     cover: "/projects/kora/cover.webp",
   },
   {
@@ -65,7 +65,7 @@ export const PROJECTS: ProjectSummary[] = [
     title: "service center",
     tag: "система для управления заявками",
     aspect: "aspect-[4/3]",
-    primaryImage: "/projects/service-center/primary.jpg",
+    primaryImage: "/projects/service-center/primary.webp",
     cover: "/projects/service-center/cover.webp",
   },
   {
@@ -74,8 +74,8 @@ export const PROJECTS: ProjectSummary[] = [
     title: "hasky rider academy",
     tag: "telegram mini app с обучением и прогрессом",
     aspect: "aspect-[4/5]",
-    primaryImage: "/projects/husky/primary.jpg",
-    cover: "/projects/husky/cover.webp",
+    primaryImage: "/projects/hasky/primary.webp",
+    cover: "/projects/hasky/cover.webp",
   },
   {
     id: "ai-product-intelligence",
@@ -83,7 +83,7 @@ export const PROJECTS: ProjectSummary[] = [
     title: "ai product intelligence",
     tag: "система для анализа релизов ai-продуктов",
     aspect: "aspect-[3/2]",
-    primaryImage: "/projects/ai-product-intelligence/primary.jpg",
+    primaryImage: "/projects/ai-product-intelligence/primary.webp",
     cover: "/projects/ai-product-intelligence/cover.webp",
   },
 ];
@@ -143,17 +143,17 @@ export const KORA_CASE: KoraCase = {
   tech: ["FastAPI", "PostgreSQL", "pgvector", "Next.js", "React", "OpenRouter", "RAG"],
   quality: "200+ автоматических тестов",
   media: {
-    primary: { src: `${KORA}/primary.jpg`, caption: "итоговый анализ и отчёт" },
+    primary: { src: `${KORA}/primary.webp`, caption: "итоговый анализ и отчёт" },
     finance: {
-      src: `${KORA}/detail-1.jpg`,
+      src: `${KORA}/detail-1.webp`,
       caption: "извлечение ключевых финансовых данных",
     },
     missing: {
-      src: `${KORA}/detail-2.jpg`,
+      src: `${KORA}/detail-2.webp`,
       caption: "поиск недостающей информации",
     },
     workspace: {
-      src: `${KORA}/detail-3.jpg`,
+      src: `${KORA}/detail-3.webp`,
       caption: "работа с документами в одном месте",
     },
     demo: {
@@ -248,19 +248,19 @@ export const SERVICE_CENTER_CASE: ServiceCenterCase = {
   tech: ["FastAPI", "PostgreSQL", "Next.js", "React", "Docker", "S3"],
   media: {
     dashboard: {
-      src: `${SC}/primary.jpg`,
+      src: `${SC}/primary.webp`,
       caption: "общая картина по работе сервиса",
     },
     jobs: {
-      src: `${SC}/detail-1.jpg`,
+      src: `${SC}/detail-1.webp`,
       caption: "все заявки, статусы, сроки и исполнители в одном месте",
     },
     job: {
-      src: `${SC}/detail-2.jpg`,
+      src: `${SC}/detail-2.webp`,
       caption: "вся история работы по одной заявке",
     },
     schedule: {
-      src: `${SC}/detail-3.jpg`,
+      src: `${SC}/detail-3.webp`,
       caption: "планирование загрузки команды",
     },
     demo: {
@@ -270,7 +270,7 @@ export const SERVICE_CENTER_CASE: ServiceCenterCase = {
   },
 };
 
-export interface HuskyCase {
+export interface HaskyCase {
   subtitle: string;
   intro: string;
   problem: string;
@@ -292,9 +292,9 @@ export interface HuskyCase {
   };
 }
 
-const HUSKY = "/projects/husky";
+const HASKY = "/projects/hasky";
 
-export const HUSKY_CASE: HuskyCase = {
+export const HASKY_CASE: HaskyCase = {
   subtitle: "Telegram Mini App с обучением, прогрессом и геймификацией",
   intro:
     "Пользователь проходит темы прямо внутри Telegram, выполняет практические задания и видит, как меняются его навыки и общий прогресс.",
@@ -358,18 +358,18 @@ export const HUSKY_CASE: HuskyCase = {
   ],
   media: {
     main: {
-      src: `${HUSKY}/primary.jpg`,
+      src: `${HASKY}/primary.webp`,
       caption: "уровень, XP и прогресс пользователя в одном экране",
     },
     sections: {
-      src: `${HUSKY}/detail-1.jpg`,
+      src: `${HASKY}/detail-1.webp`,
       caption: "структура тем и прогресс по каждому разделу",
     },
     section: {
-      src: `${HUSKY}/detail-2.jpg`,
+      src: `${HASKY}/detail-2.webp`,
       caption: "внутри раздела видно состояние, навык и следующий шаг",
     },
-    demo: { src: `${HUSKY}/demo.mp4`, caption: "сценарий пользователя внутри Mini App" },
+    demo: { src: `${HASKY}/demo.mp4`, caption: "сценарий пользователя внутри Mini App" },
   },
 };
 
@@ -466,23 +466,23 @@ export const AI_PRODUCT_INTELLIGENCE_CASE: AiProductIntelligenceCase = {
   tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "Langfuse", "pandas", "scipy", "OpenRouter"],
   media: {
     overview: {
-      src: `${AIP}/primary.jpg`,
+      src: `${AIP}/primary.webp`,
       caption: "состояние релиза, ключевая метрика и guardrails в одном экране",
     },
     decision: {
-      src: `${AIP}/detail-1.jpg`,
+      src: `${AIP}/detail-1.webp`,
       caption: "решение по релизу с причинами и экономическим эффектом",
-      crop: { width: 1159, height: 776, x: 0, y: 0, w: 1159, h: 776 },
+      crop: { width: 1448, height: 1086, x: 0, y: 0, w: 1448, h: 1086 },
     },
     investigation: {
-      src: `${AIP}/detail-2.jpg`,
+      src: `${AIP}/detail-2.webp`,
       caption: "поиск сегментов, где новая версия действительно ухудшила результат",
-      crop: { width: 1169, height: 853, x: 0, y: 0, w: 1169, h: 853 },
+      crop: { width: 1448, height: 1086, x: 0, y: 0, w: 1448, h: 1086 },
     },
     session: {
-      src: `${AIP}/detail-3.jpg`,
+      src: `${AIP}/detail-3.webp`,
       caption: "реальная пользовательская сессия как доказательство найденной проблемы",
-      crop: { width: 1189, height: 661, x: 0, y: 0, w: 1189, h: 661 },
+      crop: { width: 1448, height: 1086, x: 0, y: 0, w: 1448, h: 1086 },
     },
     demo: {
       src: `${AIP}/demo.mp4`,

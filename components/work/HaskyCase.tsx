@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { MotionConfig, motion } from "motion/react";
-import { HUSKY_CASE as H, getAdjacentProjects, type CaseMedia } from "@/data/projects";
+import { HASKY_CASE as H, getAdjacentProjects, type CaseMedia } from "@/data/projects";
 import Star from "../stars/Star";
 import { EASE } from "@/lib/motion";
 import {
@@ -17,14 +18,15 @@ import {
   statement,
   useCaseOverlay,
   type CaseNavigate,
+  MotionImage
 } from "./caseParts";
 
 const { media } = H;
 
 // The screenshots are full phone captures with black outside the rounded screen corners;
 // clipping with a matching radius turns them into phone-shaped objects on the page.
-const PHONE = "aspect-[1170/2532] overflow-hidden border border-line bg-bg-raised";
-const PHONE_RADIUS = "14% / 6.5%";
+const PHONE = "aspect-[941/1672] overflow-hidden bg-bg-raised";
+const PHONE_RADIUS = "0";
 const VIDEO_RADIUS = "15% / 6.8%";
 
 /** Portrait phone screenshot with the shared scroll reveal. */
@@ -43,9 +45,13 @@ function Phone({
     <Reveal className={className} delay={delay}>
       <figure>
         <div className={PHONE} style={{ borderRadius: PHONE_RADIUS }}>
-          <motion.img
+          <MotionImage
             src={item.src}
             alt={item.caption}
+            width={941}
+            height={1672}
+            sizes="(min-width: 768px) 30vw, 70vw"
+            quality={85}
             initial={{ scale: 1.04 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true, margin: "-8% 0px" }}
@@ -59,7 +65,7 @@ function Phone({
   );
 }
 
-export default function HuskyCase({
+export default function HaskyCase({
   onClose,
   onNavigate,
 }: {
@@ -78,8 +84,8 @@ export default function HuskyCase({
         transition={{ duration: 0.3 }}
         className="fixed inset-0 z-50 overflow-y-auto bg-bg"
       >
-        <div className="mx-auto max-w-frame px-8 pb-24 pt-8 md:px-16">
-          <div className="mb-16 flex items-start justify-between">
+        <div className="mx-auto max-w-frame px-8 pb-24 pt-4 md:px-16">
+          <div className="sticky top-0 z-30 -mx-8 mb-16 flex items-start justify-between bg-bg/85 px-8 py-4 backdrop-blur-md md:-mx-16 md:px-16">
             <span className={`${index} uppercase`}>
               03 <span className="text-ink-soft/50">/ 04</span>
             </span>
@@ -118,10 +124,14 @@ export default function HuskyCase({
                 className={PHONE}
                 style={{ borderRadius: PHONE_RADIUS }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={media.main.src}
                   alt={media.main.caption}
+                  width={941}
+                  height={1672}
+                  sizes="(min-width: 768px) 30vw, 70vw"
+                  quality={85}
+                  loading="eager"
                   className="h-full w-full object-cover"
                 />
               </motion.div>
@@ -222,7 +232,7 @@ export default function HuskyCase({
               ))}
             </div>
             <div className="col-span-10 col-start-2 sm:col-span-6 sm:col-start-4 md:col-span-4 md:col-start-9">
-              <Reveal className="md:sticky md:top-12">
+              <Reveal className="md:sticky md:top-20">
                 <figure>
                   <div
                     // 66px shorter than the recording, bottom-anchored: drops the status bar with the

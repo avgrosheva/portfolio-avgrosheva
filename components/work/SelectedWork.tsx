@@ -7,7 +7,7 @@ import { PROJECTS, type ProjectId } from "@/data/projects";
 import ProjectCard from "./ProjectCard";
 import KoraCase from "./KoraCase";
 import ServiceCenterCase from "./ServiceCenterCase";
-import HuskyCase from "./HuskyCase";
+import HaskyCase from "./HaskyCase";
 import AiProductIntelligenceCase from "./AiProductIntelligenceCase";
 
 const SITE_TITLE = "avgrosheva — digital product developer";
@@ -64,7 +64,7 @@ export default function SelectedWork({ initialCase }: { initialCase?: ProjectId 
     document.title = project ? `${project.title} — avgrosheva` : SITE_TITLE;
   }, [openId]);
 
-  const [kora, serviceCenter, husky, aiProductIntelligence] = PROJECTS;
+  const [kora, serviceCenter, hasky, aiProductIntelligence] = PROJECTS;
 
   return (
     <section
@@ -100,9 +100,9 @@ export default function SelectedWork({ initialCase }: { initialCase?: ProjectId 
           className="col-span-12 lg:col-span-5 lg:translate-y-16"
         />
         <ProjectCard
-          project={husky}
-          isOpen={openId === husky.id}
-          onOpen={() => open(husky.id)}
+          project={hasky}
+          isOpen={openId === hasky.id}
+          onOpen={() => open(hasky.id)}
           className="col-span-12 lg:col-span-4 lg:col-start-1 lg:mt-20"
         />
         <ProjectCard
@@ -134,7 +134,7 @@ export default function SelectedWork({ initialCase }: { initialCase?: ProjectId 
             <ServiceCenterCase key="service-center" onClose={close} onNavigate={navigate} />
           )}
           {openId === "hasky" && (
-            <HuskyCase key="hasky" onClose={close} onNavigate={navigate} />
+            <HaskyCase key="hasky" onClose={close} onNavigate={navigate} />
           )}
           {openId === "ai-product-intelligence" && (
             <AiProductIntelligenceCase

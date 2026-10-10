@@ -1,22 +1,31 @@
+import Image from "next/image";
 import Star from "../stars/Star";
 
 export default function ProjectVisual({
   src,
   label,
   position,
+  sizes = "(min-width: 768px) 50vw, 100vw",
+  eager,
   className,
 }: {
   src?: string;
   position?: string;
+  sizes?: string;
+  eager?: boolean;
   label: string;
   className?: string;
 }) {
   if (src) {
-    // eslint-disable-next-line @next/next/no-img-element
     return (
-      <img
+      <Image
         src={src}
         alt={label}
+        width={1448}
+        height={1086}
+        sizes={sizes}
+        quality={85}
+        loading={eager ? "eager" : undefined}
         style={position ? { objectPosition: position } : undefined}
         className={`h-full w-full object-cover object-left-top ${className ?? ""}`}
       />

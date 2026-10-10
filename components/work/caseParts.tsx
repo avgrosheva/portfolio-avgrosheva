@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import type { CaseMedia, ProjectId, ProjectSummary } from "@/data/projects";
 import { EASE } from "@/lib/motion";
+
+/** next/image with the scroll-reveal motion props the cases use on their screenshots. */
+export const MotionImage = motion.create(Image);
 
 // Shared building blocks for project cases (same type scale and motion as the Kora case).
 
@@ -69,9 +74,13 @@ export function Figure({
     <Reveal className={className} delay={delay}>
       <figure>
         <div className={`${aspect} overflow-hidden ${frame}`}>
-          <motion.img
+          <MotionImage
             src={item.src}
             alt={item.caption}
+            width={1448}
+            height={1086}
+            sizes="(min-width: 768px) 60vw, 100vw"
+            quality={85}
             initial={{ scale: 1.04 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true, margin: "-8% 0px" }}
@@ -124,18 +133,87 @@ export function CaseVideo({
     return () => observer.disconnect();
   }, [reduceMotion]);
 
+  const [zoomed, setZoomed] = useState(false);
+
+  // the inline loop rests while the full-screen player is open
+  useEffect(() => {
+    if (zoomed) ref.current?.pause();
+  }, [zoomed]);
+
   return (
-    <video
-      ref={ref}
-      src={src}
-      muted
-      loop
-      playsInline
-      controls={!!reduceMotion}
-      preload={reduceMotion ? "metadata" : "none"}
+    <>
+      <video
+        ref={ref}
+        src={src}
+        muted
+        loop
+        playsInline
+        controls={!!reduceMotion}
+        preload={reduceMotion ? "metadata" : "none"}
+        aria-label={label}
+        className={`${className ?? ""} ${reduceMotion ? "" : "cursor-zoom-in"}`}
+        onClick={reduceMotion ? undefined : () => setZoomed(true)}
+      />
+      {zoomed && <VideoLightbox src={src} label={label} onClose={() => setZoomed(false)} />}
+    </>
+  );
+}
+
+/** Full-screen player; Escape closes only this, not the case underneath. */
+function VideoLightbox({
+  src,
+  label,
+  onClose,
+}: {
+  src: string;
+  label: string;
+  onClose: () => void;
+}) {
+  const [wide, setWide] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.stopImmediatePropagation();
+      onClose();
+    };
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
       aria-label={label}
-      className={className}
-    />
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 p-4 md:p-10"
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute right-5 top-5 font-mono text-xs uppercase tracking-[0.1em] text-bg transition-opacity hover:opacity-70 md:right-10 md:top-8"
+      >
+        закрыть ×
+      </button>
+      <video
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        controls
+        onClick={(e) => e.stopPropagation()}
+        onLoadedMetadata={(e) => setWide(e.currentTarget.videoWidth > e.currentTarget.videoHeight)}
+        className="max-h-full max-w-full object-contain"
+      />
+      {wide && (
+        <p className="pointer-events-none absolute inset-x-0 bottom-6 hidden text-center font-mono text-xs uppercase tracking-[0.1em] text-bg/70 portrait:max-md:block">
+          поверните телефон, чтобы смотреть крупнее
+        </p>
+      )}
+    </div>,
+    document.body,
   );
 }
 

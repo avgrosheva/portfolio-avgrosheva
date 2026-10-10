@@ -6,20 +6,20 @@ renders a placeholder, so partial sets are safe to commit.
 
 ```
 public/projects/kora/
-  primary.jpg        (or primary.mp4)  — hero visual, used in the grid card and as the case's primary visual
-  detail-1.jpg        — large supporting visual, 4:5
-  detail-2.jpg        — small detail, 1:1
-  detail-3.jpg        — small detail, 1:1
-  detail-4.jpg        — wide visual, 21:9
+  primary.webp        (or primary.mp4)  — hero visual, used in the grid card and as the case's primary visual
+  detail-1.webp        — large supporting visual, 4:5
+  detail-2.webp        — small detail, 1:1
+  detail-3.webp        — small detail, 1:1
+  detail-4.webp        — wide visual, 21:9
 
 public/projects/service-center/
-  primary.jpg
+  primary.webp
 
-public/projects/husky/
-  primary.jpg
+public/projects/hasky/
+  primary.webp
 
 public/projects/ai-product-intelligence/
-  primary.jpg
+  primary.webp
 ```
 
 Once a project's `primary` (and, for Kora, `detail-*`) files exist, wire them
@@ -32,5 +32,5 @@ assets drop in without a layout shift):
 
 - Kora — 4:3 (desktop web app)
 - Service Center — 4:3 (desktop web app)
-- Husky — 3:4 (Telegram bot, phone-shaped)
+- Hasky — 3:4 (Telegram bot, phone-shaped)
 - AI Product Intelligence — 16:9 (dashboard)
